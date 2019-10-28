@@ -1,2 +1,8 @@
 server:
   port: 9000
+
+zuul:
+  routes:
+    order:
+      path: /zzshx/**
+      url: http://49.233.85.147:9001/zzshx
