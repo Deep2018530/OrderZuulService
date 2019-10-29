@@ -55,7 +55,7 @@ public class TokenFilter extends ZuulFilter {
         String path = request.getServletPath();
         logger.info("path:{}", path);
         for (String url : unAuthUrl) {
-            if (url.startsWith(path)) return null;
+            if (path.contains(url)) return null;
         }
 
 
