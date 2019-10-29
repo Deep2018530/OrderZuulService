@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * created by zhangdingping at 2019/10/29
@@ -23,9 +21,7 @@ public class WebRpcRemote {
     private RestTemplate restTemplate;
 
     public Boolean checkToken(String token) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("token", token);
-        JSONObject result = restTemplate.getForObject(orderServiceUrl + "/token/check/{token}", JSONObject.class, params);
+        JSONObject result = restTemplate.getForObject(orderServiceUrl + "/token/check/{token}", JSONObject.class, token);
         HttpResult httpResult = JSON.parseObject(result.toJSONString(), HttpResult.class);
         Boolean ans = (Boolean) httpResult.getResultBody();
         return ans;
