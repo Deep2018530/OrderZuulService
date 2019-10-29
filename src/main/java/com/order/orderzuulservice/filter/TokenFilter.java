@@ -50,15 +50,13 @@ public class TokenFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
+        ctx.set("logic-is-success", true);
 
         String path = request.getServletPath();
-        ctx.set("logic-is-success", true);
-        /*logger.info("path:{}", path);
+        logger.info("path:{}", path);
         for (String url : unAuthUrl) {
-            if (url.startsWith(path)) ;
-
-            return null;
-        }*/
+            if (url.startsWith(path)) return null;
+        }
 
 
         String token = request.getHeader("token");
