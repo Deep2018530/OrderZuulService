@@ -3,11 +3,14 @@ package com.order.orderzuulservice.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import com.order.orderzuulservice.remote.WebRpcRemote;
 import jdk.nashorn.internal.parser.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -21,8 +24,10 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 @Component
 public class TokenFilter extends ZuulFilter {
 
+    @Autowired
+    private WebRpcRemote webRpcRemote;
 
-    private List<String> unAuthUrl = Arrays.asList("/zzshx/user/login");
+    private List<String> unAuthUrl = Arrays.asList("/zzshx/user/login/");
 
     private Logger logger = LoggerFactory.getLogger(TokenFilter.class);
 
@@ -47,14 +52,27 @@ public class TokenFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
 
         String path = request.getServletPath();
-        if (unAuthUrl.contains(path)) {
-            ctx.set("logic-is-success", true);
+        ctx.set("logic-is-success", true);
+        /*logger.info("path:{}", path);
+        for (String url : unAuthUrl) {
+            if (url.startsWith(path)) ;
+
+            return null;
+        }*/
+
+
+        String token = request.getHeader("token");
+        logger.info("token:{}", token);
+        if (StringUtils.isEmpty(token)) {
+            logger.warn("token为空！token:{}", token);
+            ctx.setSendZuulResponse(false);
+            ctx.set("logic-is-success", false);
             return null;
         }
 
-        String token = request.getHeader("token");
-        if (StringUtils.isEmpty(token)) {
-            logger.warn("token为空！token:{}", token);
+
+        if (!webRpcRemote.checkToken(token).equals(Boolean.TRUE)) {
+            logger.warn("token失效,token:{}", token);
             ctx.setSendZuulResponse(false);
             ctx.set("logic-is-success", false);
             return null;
