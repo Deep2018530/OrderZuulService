@@ -14,8 +14,4 @@ public class OrderZuulServiceApplication {
         SpringApplication.run(OrderZuulServiceApplication.class, args);
     }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
 }
