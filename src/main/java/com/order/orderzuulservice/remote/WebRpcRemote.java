@@ -21,7 +21,7 @@ public class WebRpcRemote {
     private RestTemplate restTemplate;
 
     public Boolean checkToken(String token) {
-        JSONObject result = restTemplate.getForObject(orderServiceUrl + "/token/check/{token}", JSONObject.class, token);
+        JSONObject result = restTemplate.getForObject(orderServiceUrl + "zzshx/token/check/{token}", JSONObject.class, token);
         HttpResult httpResult = JSON.parseObject(result.toJSONString(), HttpResult.class);
         Boolean ans = (Boolean) httpResult.getResultBody();
         return ans;

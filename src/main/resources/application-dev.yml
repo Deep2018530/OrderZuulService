@@ -5,8 +5,9 @@ zuul:
   routes:
     order:
       path: /zzshx/**
-      url: http://127.0.0.1:10000/zzshx
+      url: http://127.0.0.1:10000
+      strip-prefix: false
 
 order:
   service:
-    url: http://127.0.0.1:10000/zzshx
+    url: http://127.0.0.1:10000
