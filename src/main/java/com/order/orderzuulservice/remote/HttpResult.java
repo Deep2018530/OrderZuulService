@@ -15,6 +15,8 @@ public class HttpResult<T> {
 
     private static final Integer FAIL = 500;
 
+    private static final Integer INVALID_TOKEN = 401;
+
 
     private Integer code;
 
@@ -38,6 +40,10 @@ public class HttpResult<T> {
 
     public static <T> HttpResult<T> fail(T resultBody, String message) {
         return new HttpResult<>(FAIL, message == null ? "error" : message, resultBody);
+    }
+
+    public static <T> HttpResult<T> invalidToken(T resultBody) {
+        return new HttpResult<>(INVALID_TOKEN, "invalid token", resultBody);
     }
 
 }

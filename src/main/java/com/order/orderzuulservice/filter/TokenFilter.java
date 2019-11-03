@@ -77,7 +77,7 @@ public class TokenFilter extends ZuulFilter {
 
     private Object processInvalidToken(RequestContext ctx) {
         ctx.setSendZuulResponse(false);
-        ctx.setResponseBody(JSON.toJSONString(HttpResult.fail("无效的token")));
+        ctx.setResponseBody(JSON.toJSONString(HttpResult.invalidToken("无效的token")));
         HttpServletResponse response = ctx.getResponse();
         response.setHeader("Content-Type", "application/json;charset=UTF-8");
         ctx.set("logic-is-success", false);
