@@ -30,7 +30,7 @@ public class TokenFilter extends ZuulFilter {
     @Autowired
     private WebRpcRemote webRpcRemote;
 
-    private List<String> unAuthUrl = Arrays.asList("/zzshx/user/login/", "/zzshx/user/regist/");
+    private List<String> unAuthUrl = Arrays.asList("/zzshx/user/login/", "/zzshx/user/regist");
 
     private Logger logger = LoggerFactory.getLogger(TokenFilter.class);
 
