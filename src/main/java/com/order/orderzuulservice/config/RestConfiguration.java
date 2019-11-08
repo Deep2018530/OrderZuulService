@@ -1,6 +1,7 @@
 package com.order.orderzuulservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -15,6 +16,7 @@ public class RestConfiguration {
     @Autowired
     RestTemplateBuilder builder;
 
+    @LoadBalanced
     @Bean
     public RestTemplate restTemplate() {
         return builder.build();
