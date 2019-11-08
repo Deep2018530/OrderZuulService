@@ -14,8 +14,6 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class WebRpcRemote {
 
-    @Value("${order.service.url}")
-    private String orderServiceUrl;
 
     @Autowired
     private RestTemplate restTemplate;
