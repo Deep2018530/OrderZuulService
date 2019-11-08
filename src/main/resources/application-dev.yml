@@ -1,18 +1,15 @@
 server:
-  port: 9000
+  port: 9001
 
 zuul:
   routes:
     order:
       path: /zzshx/**
       serviceId: order
-      url: http://127.0.0.1:10000
       strip-prefix: false
 
 
 order:
-  service:
-    url: http://127.0.0.1:10000
   ribbon:
     listOfServers:
       http://49.233.85.147:10000,http://49.233.85.147:10001
